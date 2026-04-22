@@ -244,25 +244,11 @@ export default function Home() {
                         <SelectItem value="Frontend Developer">Frontend Developer</SelectItem>
                         <SelectItem value="Backend Developer">Backend Developer</SelectItem>
                         <SelectItem value="Full Stack Developer">Full Stack Developer</SelectItem>
-                        <SelectItem value="Mobile Developer">Mobile Developer (iOS / Android)</SelectItem>
                         <SelectItem value="DevOps Engineer">DevOps Engineer</SelectItem>
-                        <SelectItem value="Cloud Engineer">Cloud Engineer</SelectItem>
-                        <SelectItem value="Site Reliability Engineer">Site Reliability Engineer (SRE)</SelectItem>
-                        <SelectItem value="Data Engineer">Data Engineer</SelectItem>
                         <SelectItem value="Data Scientist">Data Scientist</SelectItem>
-                        <SelectItem value="Machine Learning Engineer">Machine Learning Engineer</SelectItem>
-                        <SelectItem value="AI Engineer">AI Engineer</SelectItem>
-                        <SelectItem value="Data Analyst">Data Analyst</SelectItem>
-                        <SelectItem value="QA Engineer">QA / Test Engineer</SelectItem>
-                        <SelectItem value="Security Engineer">Security Engineer</SelectItem>
                         <SelectItem value="Product Manager">Product Manager</SelectItem>
-                        <SelectItem value="Project Manager">Project Manager</SelectItem>
                         <SelectItem value="UI/UX Designer">UI / UX Designer</SelectItem>
-                        <SelectItem value="Business Analyst">Business Analyst</SelectItem>
-                        <SelectItem value="Marketing Specialist">Marketing Specialist</SelectItem>
-                        <SelectItem value="Sales Representative">Sales Representative</SelectItem>
                         <SelectItem value="HR / Human Resources">HR / Human Resources</SelectItem>
-                        <SelectItem value="Finance / Accounting">Finance / Accounting</SelectItem>
                         <SelectItem value="Other">Other</SelectItem>
                       </SelectContent>
                     </Select>
