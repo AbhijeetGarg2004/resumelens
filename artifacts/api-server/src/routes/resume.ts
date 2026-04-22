@@ -2,7 +2,7 @@ import { Router, type IRouter } from "express";
 import { AnalyzeResumeBody, type ResumeAnalysis } from "@workspace/api-zod";
 import { ai } from "@workspace/integrations-gemini-ai";
 import pdfParse from "pdf-parse";
-import { sendReportEmail } from "../lib/gmail";
+import { sendReportEmail } from "../lib/email";
 import { renderReportHtml, renderReportText } from "../lib/reportTemplate";
 
 const router: IRouter = Router();
