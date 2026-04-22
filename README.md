@@ -70,5 +70,3 @@ pnpm --filter @workspace/resumelens run dev
 - `RESEND_FROM_EMAIL` — optional, defaults to `onboarding@resend.dev` (test sender; verify a domain at resend.com/domains to send to arbitrary recipients)
 - `DATABASE_URL` — provisioned automatically
 - `SESSION_SECRET` — provisioned automatically
-
-Built on [Replit](https://replit.com).
