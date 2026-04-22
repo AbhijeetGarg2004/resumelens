@@ -246,10 +246,18 @@ export default function Home() {
             </div>
           </div>
 
-          {data.emailSent && (
+          {data.emailSent ? (
             <div className="flex items-center justify-center gap-2 p-4 bg-green-50 text-green-800 dark:bg-green-950/30 dark:text-green-400 rounded-xl text-sm font-medium animate-in zoom-in duration-500 border border-green-200/60 dark:border-green-900/40">
               <span>📩</span>
               Your detailed resume report has been sent to your email successfully.
+            </div>
+          ) : (
+            <div className="flex items-start gap-3 p-4 bg-orange-50 text-orange-900 dark:bg-orange-950/30 dark:text-orange-300 rounded-xl text-sm border border-orange-200/60 dark:border-orange-900/40">
+              <AlertTriangle className="w-4 h-4 mt-0.5 shrink-0" />
+              <div>
+                <p className="font-semibold mb-1">Email not delivered</p>
+                <p className="text-xs leading-relaxed">{data.emailMessage}</p>
+              </div>
             </div>
           )}
 
