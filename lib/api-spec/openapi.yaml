@@ -10,6 +10,8 @@ servers:
 tags:
   - name: health
     description: Health operations
+  - name: resume
+    description: Resume analysis operations
 paths:
   /healthz:
     get:
@@ -24,6 +26,25 @@ paths:
             application/json:
               schema:
                 $ref: "#/components/schemas/HealthStatus"
+  /resume/analyze:
+    post:
+      operationId: analyzeResume
+      tags: [resume]
+      summary: Analyze a resume PDF and email the report
+      description: Accepts a base64-encoded PDF, target role, and recipient email. Runs AI analysis and sends a detailed email report.
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: "#/components/schemas/AnalyzeResumeRequest"
+      responses:
+        "200":
+          description: Analysis completed
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/AnalyzeResumeResponse"
 components:
   schemas:
     HealthStatus:
@@ -33,4 +54,109 @@ components:
           type: string
       required:
         - status
-
+    AnalyzeResumeRequest:
+      type: object
+      properties:
+        fileName:
+          type: string
+          description: Original PDF file name
+          minLength: 1
+          maxLength: 255
+        pdfBase64:
+          type: string
+          description: Base64-encoded PDF file contents
+          minLength: 1
+        role:
+          type: string
+          description: Target job role. Empty string means general evaluation.
+          maxLength: 200
+        email:
+          type: string
+          format: email
+          description: Email address to send the analysis report to
+      required:
+        - fileName
+        - pdfBase64
+        - role
+        - email
+    ResumeFeedbackItem:
+      type: object
+      properties:
+        title:
+          type: string
+        detail:
+          type: string
+      required:
+        - title
+        - detail
+    ResumeAnalysis:
+      type: object
+      properties:
+        score:
+          type: integer
+          minimum: 0
+          maximum: 100
+        verdict:
+          type: string
+          description: One-line summary verdict of the resume
+        summary:
+          type: string
+          description: A short paragraph summarizing the overall evaluation
+        roleEvaluated:
+          type: string
+          description: The role used for evaluation, or "General" if none was provided
+        atsScore:
+          type: integer
+          minimum: 0
+          maximum: 100
+          description: ATS-friendliness score
+        atsFeedback:
+          type: string
+          description: ATS-friendliness feedback
+        strengths:
+          type: array
+          items:
+            $ref: "#/components/schemas/ResumeFeedbackItem"
+        missing:
+          type: array
+          items:
+            $ref: "#/components/schemas/ResumeFeedbackItem"
+          description: Missing skills, sections, or keywords
+        improvements:
+          type: array
+          items:
+            $ref: "#/components/schemas/ResumeFeedbackItem"
+          description: Suggestions to improve content, structure, and keywords
+        keywordSuggestions:
+          type: array
+          items:
+            type: string
+          description: Recommended keywords to include
+        finalRecommendation:
+          type: string
+      required:
+        - score
+        - verdict
+        - summary
+        - roleEvaluated
+        - atsScore
+        - atsFeedback
+        - strengths
+        - missing
+        - improvements
+        - keywordSuggestions
+        - finalRecommendation
+    AnalyzeResumeResponse:
+      type: object
+      properties:
+        analysis:
+          $ref: "#/components/schemas/ResumeAnalysis"
+        emailSent:
+          type: boolean
+        emailMessage:
+          type: string
+          description: A user-facing status message about email delivery
+      required:
+        - analysis
+        - emailSent
+        - emailMessage

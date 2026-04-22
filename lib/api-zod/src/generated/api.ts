@@ -14,3 +14,88 @@ import * as zod from "zod";
 export const HealthCheckResponse = zod.object({
   status: zod.string(),
 });
+
+/**
+ * Accepts a base64-encoded PDF, target role, and recipient email. Runs AI analysis and sends a detailed email report.
+ * @summary Analyze a resume PDF and email the report
+ */
+export const analyzeResumeBodyFileNameMax = 255;
+
+export const analyzeResumeBodyRoleMax = 200;
+
+export const AnalyzeResumeBody = zod.object({
+  fileName: zod
+    .string()
+    .min(1)
+    .max(analyzeResumeBodyFileNameMax)
+    .describe("Original PDF file name"),
+  pdfBase64: zod.string().min(1).describe("Base64-encoded PDF file contents"),
+  role: zod
+    .string()
+    .max(analyzeResumeBodyRoleMax)
+    .describe("Target job role. Empty string means general evaluation."),
+  email: zod
+    .string()
+    .email()
+    .describe("Email address to send the analysis report to"),
+});
+
+export const analyzeResumeResponseAnalysisScoreMin = 0;
+export const analyzeResumeResponseAnalysisScoreMax = 100;
+
+export const analyzeResumeResponseAnalysisAtsScoreMin = 0;
+export const analyzeResumeResponseAnalysisAtsScoreMax = 100;
+
+export const AnalyzeResumeResponse = zod.object({
+  analysis: zod.object({
+    score: zod
+      .number()
+      .min(analyzeResumeResponseAnalysisScoreMin)
+      .max(analyzeResumeResponseAnalysisScoreMax),
+    verdict: zod.string().describe("One-line summary verdict of the resume"),
+    summary: zod
+      .string()
+      .describe("A short paragraph summarizing the overall evaluation"),
+    roleEvaluated: zod
+      .string()
+      .describe(
+        'The role used for evaluation, or \"General\" if none was provided',
+      ),
+    atsScore: zod
+      .number()
+      .min(analyzeResumeResponseAnalysisAtsScoreMin)
+      .max(analyzeResumeResponseAnalysisAtsScoreMax)
+      .describe("ATS-friendliness score"),
+    atsFeedback: zod.string().describe("ATS-friendliness feedback"),
+    strengths: zod.array(
+      zod.object({
+        title: zod.string(),
+        detail: zod.string(),
+      }),
+    ),
+    missing: zod
+      .array(
+        zod.object({
+          title: zod.string(),
+          detail: zod.string(),
+        }),
+      )
+      .describe("Missing skills, sections, or keywords"),
+    improvements: zod
+      .array(
+        zod.object({
+          title: zod.string(),
+          detail: zod.string(),
+        }),
+      )
+      .describe("Suggestions to improve content, structure, and keywords"),
+    keywordSuggestions: zod
+      .array(zod.string())
+      .describe("Recommended keywords to include"),
+    finalRecommendation: zod.string(),
+  }),
+  emailSent: zod.boolean(),
+  emailMessage: zod
+    .string()
+    .describe("A user-facing status message about email delivery"),
+});

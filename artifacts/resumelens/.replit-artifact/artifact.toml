@@ -1,0 +1,31 @@
+kind = "web"
+previewPath = "/"
+title = "ResumeLens"
+version = "1.0.0"
+id = "artifacts/resumelens"
+router = "path"
+
+[[integratedSkills]]
+name = "react-vite"
+version = "1.0.0"
+
+[[services]]
+name = "web"
+paths = [ "/" ]
+localPort = 26086
+
+[services.development]
+run = "pnpm --filter @workspace/resumelens run dev"
+
+[services.production]
+build = [ "pnpm", "--filter", "@workspace/resumelens", "run", "build" ]
+publicDir = "artifacts/resumelens/dist/public"
+serve = "static"
+
+[[services.production.rewrites]]
+from = "/*"
+to = "/index.html"
+
+[services.env]
+PORT = "26086"
+BASE_PATH = "/"

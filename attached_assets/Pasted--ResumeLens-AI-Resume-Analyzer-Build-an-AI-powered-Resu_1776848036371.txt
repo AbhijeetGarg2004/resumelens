@@ -1,0 +1,82 @@
+# ResumeLens - AI Resume Analyzer
+
+Build an AI-powered Resume Analyzer using Replit that reviews resumes and sends detailed feedback via email.
+
+This app allows users to upload their resume (PDF) and select the job role they are applying for.
+Based on the selected role, AI analyzes the resume, scores it, and generates improvement suggestions.
+If no role is selected, AI will intelligently evaluate the resume using its own understanding.
+
+---
+
+## Features
+
+---
+
+### 1. Resume Upload
+- Upload resume as a **PDF file**
+- Automatically extract resume content for AI analysis
+
+---
+
+### 2. Role-Based Evaluation
+- Select job role from a dropdown:
+  - Backend Developer
+  - Frontend Developer
+  - HR / Human Resources
+  - Other (with custom input field)
+- If no role is selected, AI evaluates the resume using **general best practices**
+
+---
+
+### 3. AI Resume Analysis
+- Resume score (**out of 100**)
+- Strengths of the resume
+- Missing skills or sections
+- Suggestions to improve content, structure, and keywords
+- **ATS-friendly feedback**
+
+---
+
+### 4. Processing Status & User Experience
+- Show a **loading screen or progress indicator** while AI is analyzing the resume
+- Display friendly messages such as:
+  - "Analyzing your resume..."
+  - "Scoring your resume for the selected role..."
+- Once processing is complete:
+  - Instantly show the **resume score in the UI**
+  - Display a success message confirming email delivery
+
+---
+
+### 5. Email Report Automation
+- Generate a **clean, professional resume analysis report** using AI
+- Automatically send the complete report via **Gmail**
+- Email includes:
+  - Resume score
+  - Role-based feedback
+  - Strengths and improvement areas
+  - Actionable improvement tips
+  - Final recommendation
+- UI confirmation message:
+  - "📩 Your detailed resume report has been sent to your email successfully."
+
+---
+
+## Tech Stack
+- Replit (Full-stack app)
+- PDF File Upload
+- LLM (Gemini)
+- Gmail integration for sending reports
+
+---
+
+## Target Users
+- Students
+- Job seekers
+- Freshers
+- Developers preparing for interviews
+
+---
+
+## Goal
+Help users understand how strong their resume is for a specific job role, see their score instantly, and receive a detailed AI-generated improvement report via email.

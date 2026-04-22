@@ -8,3 +8,66 @@
 export interface HealthStatus {
   status: string;
 }
+
+export interface AnalyzeResumeRequest {
+  /**
+   * Original PDF file name
+   * @minLength 1
+   * @maxLength 255
+   */
+  fileName: string;
+  /**
+   * Base64-encoded PDF file contents
+   * @minLength 1
+   */
+  pdfBase64: string;
+  /**
+   * Target job role. Empty string means general evaluation.
+   * @maxLength 200
+   */
+  role: string;
+  /** Email address to send the analysis report to */
+  email: string;
+}
+
+export interface ResumeFeedbackItem {
+  title: string;
+  detail: string;
+}
+
+export interface ResumeAnalysis {
+  /**
+   * @minimum 0
+   * @maximum 100
+   */
+  score: number;
+  /** One-line summary verdict of the resume */
+  verdict: string;
+  /** A short paragraph summarizing the overall evaluation */
+  summary: string;
+  /** The role used for evaluation, or "General" if none was provided */
+  roleEvaluated: string;
+  /**
+   * ATS-friendliness score
+   * @minimum 0
+   * @maximum 100
+   */
+  atsScore: number;
+  /** ATS-friendliness feedback */
+  atsFeedback: string;
+  strengths: ResumeFeedbackItem[];
+  /** Missing skills, sections, or keywords */
+  missing: ResumeFeedbackItem[];
+  /** Suggestions to improve content, structure, and keywords */
+  improvements: ResumeFeedbackItem[];
+  /** Recommended keywords to include */
+  keywordSuggestions: string[];
+  finalRecommendation: string;
+}
+
+export interface AnalyzeResumeResponse {
+  analysis: ResumeAnalysis;
+  emailSent: boolean;
+  /** A user-facing status message about email delivery */
+  emailMessage: string;
+}

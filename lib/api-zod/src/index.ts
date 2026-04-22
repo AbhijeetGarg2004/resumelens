@@ -1,2 +1,7 @@
 export * from "./generated/api";
-export * from "./generated/types";
+export type {
+  AnalyzeResumeRequest,
+  HealthStatus,
+  ResumeAnalysis,
+  ResumeFeedbackItem,
+} from "./generated/types";

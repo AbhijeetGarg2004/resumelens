@@ -6,4 +6,8 @@
  * OpenAPI spec version: 0.1.0
  */
 
+export * from "./analyzeResumeRequest";
+export * from "./analyzeResumeResponse";
 export * from "./healthStatus";
+export * from "./resumeAnalysis";
+export * from "./resumeFeedbackItem";
